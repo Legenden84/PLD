@@ -1,0 +1,31 @@
+Here is the result when i have two lists inside lists. Help me with extending it so that it can take any number of arguments that are bigger then 2.
+
+> (load listfunctions)
+> = #L
+> = #R
+> = #2
+> = list
+> = length
+> = append
+> = reverse
+> = map
+> = equal
+> = Equal
+> = orderedBy
+> = ()
+> (define one (list 1 2))
+= one
+> (define two (list 3 4))
+= two
+> (define three (list 5 6))
+= three
+> (
+  fun append* lists
+    (if (= (length lists) 1) lists
+      (if (= (length lists) 2) (append (#L lists) (#L (#R lists))))
+    )
+)
+= append*
+> (append* one two)
+= (1 2 3 4)
+>
