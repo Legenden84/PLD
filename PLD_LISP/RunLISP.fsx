@@ -132,6 +132,7 @@ let rec eval s localEnv =
            printf "! %s\n" "File ended before expression was complete"
          ; infile.Close ())
       ; Nil
+  // "let" is created in collaboration with Andreas during tutorial lessons
   | Cons (Symbol "let", Cons (e1, Nil)) -> eval e1 localEnv
   | Cons (Symbol "let", Cons (p, Cons (e1, rest))) ->
     let v = eval e1 localEnv
