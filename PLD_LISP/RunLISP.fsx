@@ -16,12 +16,10 @@
 open Sexp;;
 
 // Global environment (initially empty)
-
 let mutable globalEnv = []
 
 // look up variable in environment
 // environment is represented as list of (name,value) pairs
-
 let rec lookup env x =
   match env with
   | [] -> None
@@ -29,7 +27,6 @@ let rec lookup env x =
 
 // update binding in environment, adding new if not bound
 // only used for global environment
-
 let rec update env x v =
   match env with
   | [] -> [(x,v)]
@@ -37,12 +34,10 @@ let rec update env x v =
        if x=y then (x,v) :: env1 else (y,w) :: update env1 x v
 
 // update global environment
-
 let updateGlobal x v =
   globalEnv <- update globalEnv x v
 
 // exception for LISP evaluation errors
-
 exception Lerror of string
 
 // specials do not evaluate (all) their arguments
@@ -57,14 +52,11 @@ let binops = ["::"; "apply"; "/"; "%"; "!="]
 
 // variadic operators 
 let varops = ["+"; "-"; "*"; "<"; "="; "<="; ">"; ">="]
-
 let operators = specials @ unops @ binops @ varops
-
 let predefined = specials @ operators
 
 // evaluate Sexp to Sexp in local environment
 // if error raise exception Lerror message
-
 let rec eval s localEnv =
   match s with
   | Nil -> Nil
@@ -143,11 +135,17 @@ let rec eval s localEnv =
                                 + showSexpIndent v 30 30))
       | Some env -> eval (Cons (Symbol "let", rest)) (env @ localEnv))
   
+  // START OF EXCEPTIONS
+  | Cons (Symbol "throw", Cons (v, Nil)) ->
+    let message = showSexp (eval v localEnv)
+    raise (Lerror message)
+
+  // END OF EXCEPTIONS
+
   | Cons (e1, args) -> // function application
-      applyFun (eval e1 localEnv, evalList args localEnv, localEnv)
+        applyFun (eval e1 localEnv, evalList args localEnv, localEnv)
 
 // apply function to arguments
-
 and applyFun (fnc, pars, localEnv) =
       match fnc with
       | Symbol x when (List.contains x unops) ->
@@ -187,7 +185,6 @@ and applyFun (fnc, pars, localEnv) =
       | _ -> raise (Lerror (showSexp fnc + " can not be applied as a function"))
 
 // evaluate argument list
-
 and evalList es localEnv =
   match es with
   | Nil -> Nil
@@ -248,7 +245,6 @@ and applyVarop x vs =
   | _ -> Nil
 
 // tries rules of a / or lambda, choosing first matching rule (if any)
-
 and tryRules rs args localEnv =
   match rs with
   | Cons (p, Cons (e, rs1)) ->
@@ -261,7 +257,6 @@ and tryRules rs args localEnv =
 
 // match pattern to argument list
 // returns Some environment if matches, None if not
-
 and matchPattern p v =
   match (p, v) with
   | (Nil, Nil) -> Some []
@@ -281,7 +276,6 @@ and matchPattern p v =
   | _ -> None
 
 // combine environments and check if repeated variables have same value
-
 and combine env1 env2 =
   match env1 with
   | [] -> Some env2
@@ -311,23 +305,21 @@ and quoteExp v =
 
 // read-eval-print loop (REPL) for LISP variant
 // See functionality at top of this file
-
 and repl infile () =
   printf "> " ;
   match readFromStream infile " " with
   | Success (e, p) ->
      if p=0 then
        (try printf "= %s\n" (showSexpIndent (eval e []) 2 2)
-        with Lerror message -> printf "! %s \n" message)
+        with Lerror message -> printf "!! %s \n" message)
      else
-       printf "! %s\n" "Input is not a single S-expression"
+       printf "? %s\n" "Input is not a single S-expression"
      ; repl infile ()
   | ErrorAt i ->
-      printf "! %s \n" ("parse error at position " + string i);
+      printf "# %s \n" ("parse error at position " + string i);
       repl infile ()
 
 // Start REPL
-
 let infile = new System.IO.StreamReader (System.Console.OpenStandardInput ())
 printf "PLD LISP version 3.0\n";
 try repl infile () with EndOfFile s -> printf "\n"
