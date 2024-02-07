@@ -5,10 +5,8 @@
 
 (
   fun append* lists
-    (if (= (length lists) 1) lists 
-      (if (= (length lists) 2) (append (#L lists) (#L (#R lists)))
-        if (> (length lists) 2) (47); <-- ???
-      )
+    (
+      if (= (length lists) 1) 3 (append (#L lists) (#L (#R lists)))
     )
 )
 

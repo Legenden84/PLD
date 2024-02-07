@@ -1,4 +1,4 @@
-2 Simple expressions
+## 1 Simple expressions
 The simplest expression you can type is an integer, which evaluates to itself:
 > 42
 = 42
@@ -60,7 +60,7 @@ but also to indicate certain kinds of undefined behaviour and, as we will see la
 
 
 
-3 Symbols, variables and functions
+## 2 Symbols, variables and functions
 Operator names such as +, >, and if are symbols.
 A symbol is a name constructed from letters (Danish alphabet, both upper and lower case), digits,
 and the following special characters: +-*/%=<>?!\#,:{}&@~_$. Any such sequence that is not recognized
@@ -120,7 +120,7 @@ In fact, the definition (fun f (x) (* x x)) is just shorthand for (define f (\ (
 
 
 
-4 Lists, pairs, and quoted values
+## 3 Lists, pairs, and quoted values
 We noted above that using a symbol that is not bound to a value gives an “undefined variable” error,
 and that a bound symbol evaluates to the value to which it is bound. But we can also use symbols as
 values: If we prefix a symbol by a single quote, it evaluates to the symbol itself. In fact, any expression
@@ -174,7 +174,7 @@ A list that ends in () (so it can be shown without a dot) is called a proper lis
 
 
 
-5 Pattern matching
+## 4 Pattern matching
 The function definitions we have seen so far specify formal parameters as a list of variables, but functions
 can use pattern matching. As an example, the factorial function can be defined as shown here:
 ( fun factorial
@@ -249,10 +249,10 @@ This facility should not be over-used, as it can make code quite unreadable.
 
 
 
-6 Miscellaneous
-6.1 Comments
+## 5 Miscellaneous
+5.1 Comments
 When a semicolon (;) is encountered, the rest of the line is a comment.
-6.2 The apply function
+5.2 The apply function
 The binary function apply takes a function and a list of arguments and applies the function to these
 arguments. For example,
 > ( apply + ’(1 2 3))
@@ -276,7 +276,7 @@ otherwise ())
 > ( Equal ’x ’x ’x ’ xx )
 = ()
 >
-6.3 Let-expressions
+5.3 Let-expressions
 PLD LISP supports let-expressions similar to those found in F#, ML, or Haskell. The syntax is
 (let p e1 e2)
 It evaluates e1 and matches the pattern p to this. If successful, it evaluates e2 in the current envionment
@@ -294,16 +294,16 @@ respectively:
 = ()
 >
 If the test succeeds, they return their arguments, otherwise they return ().
-6.5 Variadic conditional
+5.5 Variadic conditional
 The if expression actually works with any number of arguments, which is mostly used as a shorter form
 to write nested conditionals. See Section 7 for details.
-6.6 Dynamically scoped functions
+5.6 Dynamically scoped functions
 A λ-expression can be defined using lambda instead of \, as for example in
 ( define g ( lambda ( x ) (+ x y ))
 The difference is that this defines a dynamically scoped function. This means that the variable y in the
 body does not need to be defined when the function is defined (as would be the case with static scoping),
 but it must be defined when the function is used.
-6.7 Loading and saving code
+5.7 Loading and saving code
 (load f) loads a sequence of expressions from the file f.le, evaluates these, and then returns (). The
 effect is the same as if the expressions are typed in from the REPL (see below), except that () is returned.
 The file can contain additional load commands, and these will cause new files to be loaded recursively.
