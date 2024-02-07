@@ -1,9 +1,0 @@
-# Using pattern matching
-(fun last ((n . ())) n
-          ((n . ns)) (last ns)
-)
-
-# Using if statement
-(fun last (ns) (if (#R ns) (last (#R ns))
-                           (#L ns)
-))
