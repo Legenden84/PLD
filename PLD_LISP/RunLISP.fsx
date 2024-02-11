@@ -42,7 +42,7 @@ exception Lerror of string
 
 // specials do not evaluate (all) their arguments
 let specials =
-  ["quote"; "lambda"; "\\"; "if"; "define"; "save"; "load"; "let"]
+  ["quote"; "lambda"; "\\"; "if"; "define"; "save"; "load"; "let"; "throw"; "catch"]
 
 // unary operators
 let unops = ["number?"; "symbol?"]
@@ -134,16 +134,25 @@ let rec eval s localEnv =
                                 + " did not match the value "
                                 + showSexpIndent v 30 30))
       | Some env -> eval (Cons (Symbol "let", rest)) (env @ localEnv))
-  
-  // START OF EXCEPTIONS
-  | Cons (Symbol "throw", Cons (v, Nil)) ->
-    let message = showSexp (eval v localEnv)
-    raise (Lerror message)
 
-  // END OF EXCEPTIONS
+  // START EXCEPTIONS
+  | Cons (Symbol "throw", Cons (error, Nil)) ->
+    // printfn "error: %s" (showSexp error)
+    let value = eval error localEnv
+    let message = showSexp value
+    raise (Lerror (message))
+
+  | Cons (Symbol "catch", Cons (expr, Cons (handler, Nil))) ->
+      try
+          eval expr localEnv
+      with Lerror msg ->
+          let errorData = Cons(Symbol "quote", Cons(Symbol msg, Nil))
+          // printfn "errorData %s" (showSexp errorData)
+          eval (Cons(handler, Cons(errorData, Nil))) localEnv
+  // END EXCEPTIONS
 
   | Cons (e1, args) -> // function application
-        applyFun (eval e1 localEnv, evalList args localEnv, localEnv)
+    applyFun (eval e1 localEnv, evalList args localEnv, localEnv)
 
 // apply function to arguments
 and applyFun (fnc, pars, localEnv) =
