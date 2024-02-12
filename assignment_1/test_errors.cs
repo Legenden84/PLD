@@ -1,24 +1,39 @@
-(
-  fun fff
-    ((head) (if (symbol? head) head (throw (Lerror))))
-    ((head . tail) (if (symbol? head) head (fff tail)))
-)
+(load listfunctions)
 
-(fff '(x b z c))
-
-(throw 'Error)
-
-
+// ff function
 (
   fun ff
-    (head) (if (symbol? head) head (throw '(Error)))
+    (head) (if (symbol? head) head (ff (#L head))) 
     ((head . tail) (if (symbol? head) head (ff tail)))
 )
 
+// test cases
+(ff 'x)
+(ff (2 . (3 . ())))
+(ff '(x . (y . (z . ()))))
+
 (
-  fun ff
-    (head) (if (symbol? head) head (throw '(Error Expected a symbol))) 
-    ((head . tail) (if (symbol? head) head (ff tail)))
+  fun raiseException (x) (throw 'exception)
 )
 
-(throw ('Error))
+(
+  catch
+    (raiseException)
+    (\ (e) 'ExceptionCaught)
+)
+
+(
+  catch
+    (xx
+      (x) (if (symbol? x)) x (throw 'error)
+    )
+)
+
+(
+  fun xx (x) ((if (symbol? x)) x (throw 'error))
+)
+
+(
+  catch
+    (xx 2)
+)

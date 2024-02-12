@@ -39,6 +39,7 @@ let updateGlobal x v =
 
 // exception for LISP evaluation errors
 exception Lerror of string
+exception SexprError of Sexp
 
 // specials do not evaluate (all) their arguments
 let specials =
@@ -137,16 +138,15 @@ let rec eval s localEnv =
 
   // START EXCEPTIONS
   | Cons (Symbol "throw", Cons (error, Nil)) ->
-    // printfn "error: %s" (showSexp error)
     let value = eval error localEnv
-    let message = showSexp value
-    raise (Lerror (message))
+    raise (SexprError value)
 
   | Cons (Symbol "catch", Cons (expr, Cons (handler, Nil))) ->
+      printfn "handler:"
       try
           eval expr localEnv
-      with Lerror msg ->
-          let errorData = Cons(Symbol "quote", Cons(Symbol msg, Nil))
+      with SexprError msg ->
+          let errorData = Cons(Symbol "quote", Cons(msg, Nil))
           // printfn "errorData %s" (showSexp errorData)
           eval (Cons(handler, Cons(errorData, Nil))) localEnv
   // END EXCEPTIONS
