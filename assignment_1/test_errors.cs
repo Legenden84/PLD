@@ -3,37 +3,21 @@
 // ff function
 (
   fun ff
-    (head) (if (symbol? head) head (ff (#L head))) 
+    (head) (if (symbol? head) head (ff (#L head)))
     ((head . tail) (if (symbol? head) head (ff tail)))
+)
+
+(load listfunctions)
+
+(
+  fun xx (x) (if (symbol? x) x (throw x))
+)
+
+(
+  catch (xx 2) (\ (e) ())
 )
 
 // test cases
 (ff 'x)
-(ff (2 . (3 . ())))
-(ff '(x . (y . (z . ()))))
-
-(
-  fun raiseException (x) (throw 'exception)
-)
-
-(
-  catch
-    (raiseException)
-    (\ (e) 'ExceptionCaught)
-)
-
-(
-  catch
-    (xx
-      (x) (if (symbol? x)) x (throw 'error)
-    )
-)
-
-(
-  fun xx (x) ((if (symbol? x)) x (throw 'error))
-)
-
-(
-  catch
-    (xx 2)
-)
+(ff '(2 4 z 3))
+(ff 7)

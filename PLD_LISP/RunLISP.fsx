@@ -139,16 +139,20 @@ let rec eval s localEnv =
   // START EXCEPTIONS
   | Cons (Symbol "throw", Cons (error, Nil)) ->
     let value = eval error localEnv
-    raise (SexprError value)
+    raise (SexprError (value))
 
   | Cons (Symbol "catch", Cons (expr, Cons (handler, Nil))) ->
-      printfn "handler:"
       try
           eval expr localEnv
       with SexprError msg ->
-          let errorData = Cons(Symbol "quote", Cons(msg, Nil))
-          // printfn "errorData %s" (showSexp errorData)
-          eval (Cons(handler, Cons(errorData, Nil))) localEnv
+          match msg with
+            | Num n -> 
+                printfn "exception raised: number? %A" n
+                eval (Cons (handler, Cons(Num n, Nil))) localEnv
+            | Symbol s ->
+                printfn "exception raised: symbol? %s" s
+                eval (Cons(handler, Cons(Symbol s, Nil))) localEnv
+            | _ -> raise (Lerror "Unhandled exception!")
   // END EXCEPTIONS
 
   | Cons (e1, args) -> // function application
