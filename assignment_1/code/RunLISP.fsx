@@ -138,6 +138,7 @@ let rec eval s localEnv =
                                 + " did not match the value "
                                 + showSexpIndent v 30 30))
       | Some env -> eval (Cons (Symbol "let", rest)) (env @ localEnv))
+  // START OF EXCEPTIONS
   | Cons (Symbol "throw", Cons (arg, Cons(msg, Nil))) ->
     let statement_eval = eval arg localEnv
     let msg_eval = eval msg localEnv
