@@ -1,4 +1,4 @@
-To run the lISP interpreter:
+To run the LISP interpreter:
 
     dotnet fsi RunLISP.fsx
 
