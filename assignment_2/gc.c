@@ -25,6 +25,13 @@ uint64_t *isHeapPointer(uint64_t *value) {
   return 1;
 }
 
+// int isHeapPointer(uint64_t *value) {
+//   if (value < heapStart) return 0;
+//   if (value > heapEnd) return 0;
+//   if (*(value-2) != 0xfff09c169414613) return 0;
+//   return 1;
+// }
+
 uint64_t firstGlobal[100] = {0}; /* simulated global variables */
 uint64_t *lastGlobal = firstGlobal+99;
 
