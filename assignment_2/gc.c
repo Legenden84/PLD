@@ -18,7 +18,7 @@ void initialize_freelist() {
   freelist +=2;
 }
 
-int isHeapPointer(uint64_t *value) {
+uint64_t *isHeapPointer(uint64_t *value) {
   if (value < heapStart) return 0;
   if (value > heapEnd) return 0;
   if (*(value-2) != 0xfff09c169414613) return 0;
