@@ -93,6 +93,7 @@ void sweep() {
   }
 }
 
+// made with Andreas durint TA session 4
 void man_free(uint64_t *pointer) {
   if (isHeapPointer(pointer)) {
     *pointer = (uint64_t) freelist;
