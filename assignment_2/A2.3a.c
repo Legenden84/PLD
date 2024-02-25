@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int functionDefinition = 10;
+int x = 10;
 
-int functionCall1() {
-    return functionDefinition;
+int functionCall1(int x) {
+    return x;
 }
 
-int functionCall2() {
-    return functionDefinition;
+int functionCall2(int x) {
+    return x;
 }
 
 int main() {
-    printf("functionCall1() { return functionDefinition; } = %d\n", functionCall1());
-    functionDefinition = 20;
-    printf("functionCall2() { return functionDefinition; } = %d\n", functionCall2());
+    printf("functionCall1() { return x; } = %d\n", functionCall1(x));
+    int x = 20;
+    printf("functionCall2() { return x; } = %d\n", functionCall2(x));
 
     return 0;
 }
