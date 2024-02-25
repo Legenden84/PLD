@@ -11,9 +11,11 @@ int functionCall2(int x) {
 }
 
 int main() {
-    printf("functionCall1() { return x; } = %d\n", functionCall1(x));
+    printf("example 1:\n");
+    printf("  functionCall1() { return x; } = %d\n", functionCall1(x));
     int x = 20;
-    printf("functionCall2() { return x; } = %d\n", functionCall2(x));
+    printf("example 2:\n");
+    printf("  functionCall2() { return x; } = %d\n", functionCall2(x));
 
     return 0;
 }
