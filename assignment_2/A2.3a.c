@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int x = 10;
+int functionDefinition = 10;
 
-int functionCall() {
-    return x;
+int functionCall1() {
+    return functionDefinition;
 }
 
-void updateScope(int newScope) {
-    x = newScope;
+int functionCall2() {
+    return functionDefinition;
 }
 
 int main() {
-    printf("functionCall() - global variable x: %d\n", functionCall());
-    updateScope(20);
-    printf("functionCall() - local variable x: %d\n", functionCall());
+    printf("functionCall1() { return functionDefinition; } = %d\n", functionCall1());
+    functionDefinition = 20;
+    printf("functionCall2() { return functionDefinition; } = %d\n", functionCall2());
 
     return 0;
 }
