@@ -2,18 +2,20 @@
 
 int x = 10;
 
-int functionCall() {
+int functionCall1(int x) {
     return x;
 }
 
-void updateScope(int newScope) {
-    x = newScope;
+int functionCall2(int x) {
+    return x;
 }
 
 int main() {
-    printf("functionCall() - global variable x: %d\n", functionCall());
-    updateScope(20);
-    printf("functionCall() - local variable x: %d\n", functionCall());
+    printf("example 1:\n");
+    printf("  functionCall1() { return x; } = %d\n", functionCall1(x));
+    int x = 20;
+    printf("example 2:\n");
+    printf("  functionCall2() { return x; } = %d\n", functionCall2(x));
 
     return 0;
 }
