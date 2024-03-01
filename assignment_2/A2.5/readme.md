@@ -17,4 +17,5 @@ step 3) - to evaluate the variable 'mina' type in:
 The same is done for prog2.hs
 
 step 4) - to quit GHCi:
+
     :q
