@@ -10,12 +10,8 @@
 
 (fun ff_ex
   ((element . rest)) (if (symbol? element) element (if (number? element)
-     (catch (throw element 'e) (ff rest))))
+     (catch (throw element 'e) (ff_ex rest))))
   
   (element . ()) (if (symbol? element) element (if (number? element)
     (catch (throw element 'e) (quote number_exception))))
 )
-
-
-
-
