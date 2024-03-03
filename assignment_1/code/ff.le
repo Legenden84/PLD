@@ -7,10 +7,11 @@
 )
 
 ; function for finding the leftmost symbol. exception handling for numbers
-(fun ff_ex
-  ((element . rest)) (if (symbol? element) element (if (number? element)
-     (catch (throw element 'number_exception) (ff_ex rest))))
+(
+  fun ff_ex
+    ((element . rest)) (if (symbol? element) element (if (number? element)
+      (catch (throw element 'number_exception) (ff_ex rest))))
   
-  (element . ()) (if (symbol? element) element (if (number? element)
-    (catch (throw element 'number_exception) (quote function_terminated))))
+    (element . ()) (if (symbol? element) element (if (number? element)
+      (catch (throw element 'number_exception) (quote function_terminated))))
 )
