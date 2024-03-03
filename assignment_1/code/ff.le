@@ -1,13 +1,12 @@
 (load listfunctions)
 ; ff function for finding lestmost symbol (cannot have numbers and () as input)
 (
-    fun ff
-      (head) (if (symbol? head) head (ff (#L head)))
-      ((head . tail) (if (symbol? head) head (ff tail)))
+  fun ff 
+    ((head . tail)) (if (symbol? head) head (if (equal tail '()) '() (ff tail)))
+    (head) (if (symbol? head) head '())
 )
 
-; function for finding the leftmost symbol w. exception handling for numbers and ()
-
+; function for finding the leftmost symbol w. exception handling for numbers
 (fun ff_ex
   ((element . rest)) (if (symbol? element) element (if (number? element)
      (catch (throw element 'e) (ff_ex rest))))
