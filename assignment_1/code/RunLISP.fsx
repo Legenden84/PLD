@@ -42,7 +42,7 @@ let updateGlobal x v =
 
 // exception for LISP evaluation errors
 exception Lerror of string
-exception SexpError of string
+exception SexpError of Sexp
 
 // specials do not evaluate (all) their arguments
 let specials =
@@ -142,18 +142,24 @@ let rec eval s localEnv =
   | Cons (Symbol "throw", Cons (arg, Cons(msg, Nil))) ->
     let statement_eval = eval arg localEnv
     let msg_eval = eval msg localEnv
-    let mm =
+    let errorMessage =
       match msg_eval with
-      | Nil -> Symbol "error: "
+      | Nil -> Symbol "Error: "
       | m -> m
-    raise (SexpError ((showSexp mm) + " " + (showSexp statement_eval)))
-  | Cons (Symbol "catch", Cons(excn, (Cons (funct, Nil)))) ->
+    raise (SexpError (Cons(errorMessage, Cons(statement_eval, Nil))))
+
+  | Cons (Symbol "catch", Cons(excn, Cons(funct, Nil))) ->
     try
-      (eval excn localEnv)
-    with SexpError message ->
-      printfn "exception caught! %A" (message)
-      match (eval funct localEnv) with
-      | fnct -> fnct
+      eval excn localEnv
+    with
+    | SexpError (Cons (Symbol sym, expr)) ->
+        printfn "exception %A: Sexpr: %A" sym expr
+        eval funct localEnv
+
+    | ex ->
+        let unhandledErrorMessage = Symbol ("Unhandled exception: " + ex.Message)
+        raise (SexpError (Cons(unhandledErrorMessage, Nil)))
+
   // END OF EXCEPTIONS
   | Cons (e1, args) -> // function application
         applyFun (eval e1 localEnv, evalList args localEnv, localEnv)
