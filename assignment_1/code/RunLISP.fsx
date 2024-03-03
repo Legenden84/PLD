@@ -149,7 +149,7 @@ let rec eval s localEnv =
       eval excn localEnv
     with
       | SexpError (Cons (Symbol msg, expr)) ->
-          printfn "exception %A: Sexpr: %A" msg expr
+          printfn "  exception %A: Sexpr: %A" msg expr
           eval handler localEnv
       | ex ->
           let unhandledErrorMessage = Symbol ("Unhandled exception: " + ex.Message)
