@@ -6,16 +6,22 @@
     (head) (if (symbol? head) head '())
 )
 
-; function for finding the leftmost symbol. exception handling for numbers
-(
-  fun ff_ex
-    ((element . rest)) (if (symbol? element) element (if (number? element)
-      (catch (throw element 'number?) (ff_ex rest))))
+; function for finding the leftmost symbol. exception handling for numbers and '()
+(fun ff_ex
+  ((head . tail)) (
+    if (symbol? head) head (
+      if (number? head) (catch (throw head 'number?) (ff_ex tail)) (
+        if (equal head '()) (catch (throw head '()?) (ff_ex tail))
+      )
+    )
+  )
   
-    (element) (if (symbol? element) element (if (number? element)
-      (catch (throw element 'number?) (quote function_terminated))))
+  (head) (
+    if (symbol? head) head (
+      if (number? head) (catch (throw head 'number?) (quote function_terminated)) (
+        if (equal head '()) (catch (throw head '()) (quote function_terminated)) ()
+      ) 
+    )
+  )
 )
-
-
-
-
+    

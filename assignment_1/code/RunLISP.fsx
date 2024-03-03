@@ -142,7 +142,11 @@ let rec eval s localEnv =
   | Cons (Symbol "throw", Cons (arg, Cons(msg, Nil))) ->
     let arg_eval = eval arg localEnv
     let msg_eval = eval msg localEnv
-    raise (SexpError (Cons(msg_eval, Cons(arg_eval, Nil))))
+    let message =
+      match msg_eval with
+        | Nil -> Symbol "Nil"
+        | msg -> msg
+    raise (SexpError (Cons(message, Cons(arg_eval, Nil))))
 
   | Cons (Symbol "catch", Cons(excn, Cons(handler, Nil))) ->
     try
