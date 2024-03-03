@@ -148,8 +148,8 @@ let rec eval s localEnv =
     try
       eval excn localEnv
     with
-      | SexpError (Cons (Symbol sym, expr)) ->
-          printfn "exception %A: Sexpr: %A" sym expr
+      | SexpError (Cons (Symbol msg, expr)) ->
+          printfn "exception %A: Sexpr: %A" msg expr
           eval funct localEnv
 
       | ex ->
