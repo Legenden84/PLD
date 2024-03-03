@@ -152,13 +152,13 @@ let rec eval s localEnv =
     try
       eval excn localEnv
     with
-    | SexpError (Cons (Symbol sym, expr)) ->
-        printfn "exception %A: Sexpr: %A" sym expr
-        eval funct localEnv
+      | SexpError (Cons (Symbol sym, expr)) ->
+          printfn "exception %A: Sexpr: %A" sym expr
+          eval funct localEnv
 
-    | ex ->
-        let unhandledErrorMessage = Symbol ("Unhandled exception: " + ex.Message)
-        raise (SexpError (Cons(unhandledErrorMessage, Nil)))
+      | ex ->
+          let unhandledErrorMessage = Symbol ("Unhandled exception: " + ex.Message)
+          raise (SexpError (Cons(unhandledErrorMessage, Nil)))
 
   // END OF EXCEPTIONS
   | Cons (e1, args) -> // function application
