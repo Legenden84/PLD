@@ -6,11 +6,11 @@
     (head) (if (symbol? head) head '())
 )
 
-; function for finding the leftmost symbol w. exception handling for numbers
+; function for finding the leftmost symbol. exception handling for numbers
 (fun ff_ex
   ((element . rest)) (if (symbol? element) element (if (number? element)
-     (catch (throw element 'e) (ff_ex rest))))
+     (catch (throw element 'number_exception) (ff_ex rest))))
   
   (element . ()) (if (symbol? element) element (if (number? element)
-    (catch (throw element 'e) (quote number_exception))))
+    (catch (throw element 'number_exception) (quote function_terminated))))
 )
