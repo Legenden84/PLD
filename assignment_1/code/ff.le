@@ -12,6 +12,6 @@
     ((element . rest)) (if (symbol? element) element (if (number? element)
       (catch (throw element 'number_exception) (ff_ex rest))))
   
-    (element . ()) (if (symbol? element) element (if (number? element)
+    (element) (if (symbol? element) element (if (number? element)
       (catch (throw element 'number_exception) (quote function_terminated))))
 )
