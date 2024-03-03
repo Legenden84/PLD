@@ -11,7 +11,7 @@
   ((head . tail)) (
     if (symbol? head) head (
       if (number? head) (catch (throw head 'number?) (ff_ex tail)) (
-        if (equal head '()) (catch (throw head '()?) (ff_ex tail))
+        if (equal head '()) (catch (throw head '()) (ff_ex tail))
       )
     )
   )
