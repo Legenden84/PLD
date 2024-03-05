@@ -12,7 +12,10 @@ squash([], []).
 squash([X], [X]).
 
 % Recursive case: If the head is the same as the next element, skip the head and continue squashing.
-squash([X, X | Tail], Squashed) :- squash([X | Tail], Squashed).
+% squash([X, X | Tail], Squashed) :- squash([X | Tail], Squashed).
+squash([X,X|T], L) :- squash([X|T], L).
 
 % Recursive case: If the head is different from the next element, include the head in the squashed list.
-squash([X, Y | Tail], [X | Squashed]) :- X \= Y, squash([Y | Tail], Squashed).
+% squash([X, Y | Tail], [X | Squashed]) :- X \= Y, squash([Y | Tail], Squashed).
+% X \= Y, X =! Y
+squash([X, Y|T], [X|As]) :- squash([Y|T], As).
