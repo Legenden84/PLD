@@ -1,4 +1,4 @@
-# Polymorphism notes
+# Polymorphism learning goals
 ## Differences between ad-hoc polymorphism and parametric polymorphism
 Ad-hoc polymorphism and parametric polymorphism are two types of polymorphism in programming languages that allow for a more flexible and reusable codebase. Here's a breakdown of their differences:
 
