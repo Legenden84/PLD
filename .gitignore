@@ -1,4 +1,6 @@
-assignment_3/task2/bin/
-assignment_3/task2/obj/
+assignment_3/task2a/bin/
+assignment_3/task2a/obj/
+assignment_3/task2b/bin/
+assignment_3/task2b/obj/
 *.csproj
 .fake
