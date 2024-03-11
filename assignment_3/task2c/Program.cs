@@ -5,14 +5,12 @@ class Audi : Car {
     public new string name = "I am an Audi";
 };
 
-class Program {
+class Task2c {
     public static void GetArrayLength(Car[] cars) {
         Console.WriteLine($"\nArray processed. Length: {cars.Length}. \n object is of type: {cars.GetType()}");
     }
     public static void Main (string[] args) {
-
         // Method that can handle any object
-
         Action<Car[]> actCar = GetArrayLength;
         Action<Audi[]> actAudi = actCar;
 
@@ -22,5 +20,7 @@ class Program {
         actCar(car);
         actAudi(audi);
 
+        // run-time exception (contravariance)
+        actAudi(car)
     }
 }
