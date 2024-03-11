@@ -6,6 +6,6 @@ isBinaryTree(node(LABEL, leaf(L), leaf(R))).
 isBinaryTree(leaf(LABEL)).
 
 %IsLabel in tree?
-isLabel(leaf(LABEL), KEY) :- LABEL==KEY. %needs more work
-isLabel(node(LABEL, L, R), KEY) :- LABEL==KEY.
-isLabel(node(LABEL, L, R), KEY) :- LABEL\=KEY, isLabel(L, KEY), isLabel(R, KEY).
+isLabel(leaf(LABEL), LABEL).
+isLabel(node(LABEL, L, R), LABEL).
+isLabel(node(LABEL, L, R), KEY) :- LABEL\=KEY, isLabel(L, KEY); isLabel(R, KEY).
