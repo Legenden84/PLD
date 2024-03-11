@@ -20,7 +20,7 @@ define the transition rules for **Bexp**.
 ## Answer
 1.  Modification of the Formation Rules for Statements with Boolean Expressions
     To integrate Boolean expressions into the imperative language's syntax, we can modify the formation rules for statements that traditionally rely on conditions, such as conditional statements (if-then-else) and loops (while). Here’s how the modified formation rules might look:
-    * **Conditional Statement:** Utilize a Boolean expression for the condition.
+    * **Conditional if Statement:** Utilize a Boolean expression for the condition.
     ```
     S ::= ... | if b then S1 else S2
     ```
