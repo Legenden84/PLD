@@ -1,11 +1,9 @@
-node(sophia, node(hannah, leaf(2), leaf(3)), node(høst, leaf(1), leaf(nil))).
-
 %is the structure a binary tree?
-isBinaryTree(node(LABEL, L , R)) :- isBinaryTree(L),  isBinaryTree(R).
-isBinaryTree(node(LABEL, leaf(L), leaf(R))).
-isBinaryTree(leaf(LABEL)).
+isBinaryTree(leaf(_)).
+isBinaryTree(node(_, leaf(_), leaf(_))).
+isBinaryTree(node(_, L , R)) :- isBinaryTree(L),  isBinaryTree(R).
 
 %IsLabel in tree?
-isLabel(leaf(LABEL), LABEL).
-isLabel(node(LABEL, L, R), LABEL).
-isLabel(node(LABEL, L, R), KEY) :- LABEL\=KEY, isLabel(L, KEY); isLabel(R, KEY).
+isLabelInTree(leaf(LABEL), LABEL).
+isLabelInTree(node(LABEL, _, _), LABEL).
+isLabelInTree(node(LABEL, L, R), KEY) :- LABEL\=KEY, isLabelInTree(L, KEY); isLabelInTree(R, KEY).
