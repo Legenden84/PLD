@@ -21,6 +21,6 @@ class Task2c {
         actAudi(audi);
 
         // run-time exception (contravariance)
-        actAudi(car)
+        actAudi(car);
     }
 }
