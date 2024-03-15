@@ -14,7 +14,7 @@ int main() {
     add();
     printf("  x = %d\n", x);
 
-    int x = 100;
+    x = x + 95;
 
     printf("example 2:\n");
     printf("  x = %d\n", x);

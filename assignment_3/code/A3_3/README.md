@@ -1,3 +1,4 @@
+# instructions
 To run the prolog code in A3_3 make sure to have prolog installed.
 
 Then run the following command in terminal:

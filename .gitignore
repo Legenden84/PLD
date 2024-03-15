@@ -6,5 +6,9 @@ assignment_3/test_folder/test/bin/
 assignment_3/test_folder/test/obj/
 assignment_3/cs_project/project/A3.2.3/bin/
 assignment_3/cs_project/project/A3.2.3/obj/
+assignment_3/task2a/bin/
+assignment_3/task2a/obj/
+assignment_3/task2c/bin/
+assignment_3/task2c/obj/
 *.csproj
 .fake
